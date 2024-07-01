@@ -1,3 +1,4 @@
+import { EVENTS } from "../../utils";
 import { ensureElement } from "../../utils/utils";
 import { IEvents } from "../base/events";
 import { Card } from "../index";
@@ -19,7 +20,7 @@ export class CatalogCard<T> extends Card<T> {
 		this._category = ensureElement<HTMLSpanElement>('.card__category', container);
 		this._image = ensureElement<HTMLImageElement>('.card__image', container);
 		this.container.addEventListener('click', () =>
-			this.events.emit('card:select', { id: this.id })
+			this.events.emit(EVENTS.cardSelect, { id: this.id })
 		);
 	}
 

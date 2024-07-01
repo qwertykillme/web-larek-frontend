@@ -1,3 +1,4 @@
+import { EVENTS } from '../../../utils';
 import { ensureElement } from '../../../utils/utils';
 import { View } from '../View/View';
 import { IEvents } from '../events';
@@ -30,12 +31,12 @@ export class Modal extends View<IModal> {
 
 	open() {
 		this.toggleClass(this.container, 'modal_active', true);
-		this._events.emit('modal:open');
+		this._events.emit(EVENTS.modalOpen);
 	}
 
 	close() {
 		this.toggleClass(this.container, 'modal_active', false);
-		this._events.emit('modal:close');
+		this._events.emit(EVENTS.modalClose);
 	}
 
 	set content(value: HTMLElement) {

@@ -1,6 +1,7 @@
 import { View } from '../base/View/View';
 import { IEvents } from '../base/events';
 import { ensureElement } from '../../utils/utils';
+import { EVENTS } from '../../utils';
 
 export interface IPage {
 	catalog: HTMLElement[];
@@ -21,7 +22,7 @@ export class Page extends View<IPage> {
 		this._basket = ensureElement<HTMLElement>('.header__basket');
 		this._counter = ensureElement<HTMLSpanElement>('.header__basket-counter');
 		this._wrapper = ensureElement<HTMLDivElement>('.page__wrapper', container);
-		this._basket.addEventListener('click', () => events.emit('basket:open'));
+		this._basket.addEventListener('click', () => events.emit(EVENTS.basketOpen));
 	}
 
 	set catalog(items: HTMLElement[]) {

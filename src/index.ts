@@ -28,22 +28,12 @@ import {
 	IOrderResult,
 	PaymentType,
 } from './types/index';
-import { CDN_URL, API_URL } from './utils/constants';
+import { CDN_URL, API_URL, templates } from './utils/constants';
 import { ensureElement, cloneTemplate } from './utils/utils';
 import { EVENTS, UIMESSAGES } from './utils/enums';
 
 const pageContent = ensureElement<HTMLElement>('.page');
 const modalContainer = ensureElement<HTMLDivElement>('#modal-container');
-
-const templates = {
-	card: ensureElement<HTMLTemplateElement>('#card-catalog'),
-	preview: ensureElement<HTMLTemplateElement>('#card-preview'),
-	basketCard: ensureElement<HTMLTemplateElement>('#card-basket'),
-	basket: ensureElement<HTMLTemplateElement>('#basket'),
-	order: ensureElement<HTMLTemplateElement>('#order'),
-	contacts: ensureElement<HTMLTemplateElement>('#contacts'),
-	success: ensureElement<HTMLTemplateElement>('#success'),
-};
 
 const productApi = new ProductApi(API_URL, CDN_URL);
 const orderApi = new OrderApi(API_URL);

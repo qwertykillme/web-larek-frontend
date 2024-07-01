@@ -1,6 +1,7 @@
 import { Model } from "../index";
 import { ICatalogData, IProduct } from "../../types";
 import { IEvents } from "../base/events";
+import { EVENTS } from "../../utils";
 
 export class Catalog extends Model<ICatalogData> {
     protected _items: IProduct[];
@@ -16,7 +17,7 @@ export class Catalog extends Model<ICatalogData> {
 
     set items(list: IProduct[]) {
         this._items = list;
-        this.emit('catalog:items-changed', this._items);
+        this.emit(EVENTS.catalogChanged, this._items);
     }
 
     find(id: string): IProduct | undefined {

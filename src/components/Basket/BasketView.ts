@@ -2,6 +2,7 @@ import { View } from '../index';
 import { IBasketView } from '../../types';
 import { IEvents } from '../base/events';
 import { ensureElement } from '../../utils/utils';
+import { EVENTS } from '../../utils';
 
 export class BasketView extends View<IBasketView> {
 	protected _items: HTMLElement;
@@ -18,7 +19,7 @@ export class BasketView extends View<IBasketView> {
 		);
 		this._price = ensureElement<HTMLSpanElement>('.basket__price', container);
 		this.events = events;
-		this.button.addEventListener('click', () => this.events.emit('order:open'));
+		this.button.addEventListener('click', () => this.events.emit(EVENTS.orderOpen));
 	}
 
 	set items(items: HTMLElement[]) {
