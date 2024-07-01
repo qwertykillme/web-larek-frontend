@@ -14,7 +14,7 @@
 - src/types/index.ts — файл с типами
 - src/components/index.ts - файл со всеми компонентами и базовыми классами
 - src/index.ts — точка входа приложения
-- src/styles/styles.scss — корневой файл стилей
+- src/common.blocks — корневой файл стилей
 - src/utils/constants.ts — файл с константами
 - src/utils/utils.ts — файл с утилитами
 
