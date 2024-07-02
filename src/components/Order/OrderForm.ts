@@ -1,7 +1,7 @@
-import { Form } from "..";
-import { IContacts, IDelivery } from "../../types/index";
-import { ensureAllElements, ensureElement } from "../../utils/utils";
-import { IEvents } from "../base/events";
+import { Form } from '..';
+import { IContacts, IDelivery } from '../../types/index';
+import { ensureAllElements, ensureElement } from '../../utils/utils';
+import { IEvents } from '../base/events';
 
 export class OrderForm extends Form<IDelivery> {
 	protected buttonContainer: HTMLDivElement;
@@ -15,12 +15,12 @@ export class OrderForm extends Form<IDelivery> {
 			'.order__buttons',
 			container
 		);
-        
+
 		[this.onlineButton, this.cashButton] = ensureAllElements<HTMLButtonElement>(
 			'.button_alt',
 			container
 		);
-        
+
 		this.addressInput = this.container.elements.namedItem(
 			'address'
 		) as HTMLInputElement;

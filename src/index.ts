@@ -22,8 +22,6 @@ import {
 	ICatalogCard,
 	IIdentifier,
 	IOrderList,
-	IDelivery,
-	IContacts,
 	IOrderData,
 	IOrderResult,
 	PaymentType,
@@ -47,8 +45,16 @@ const basket = new Basket({}, emitter);
 const basketView = new BasketView(cloneTemplate(templates.basket), emitter);
 const orderBuilder = new OrderConstructor({}, emitter);
 const orderForm = new OrderForm(cloneTemplate(templates.order), emitter);
-const contactsForm = new ContactsForm(cloneTemplate(templates.contacts), emitter);
+const contactsForm = new ContactsForm(
+	cloneTemplate(templates.contacts),
+	emitter
+);
 const successForm = new Success(cloneTemplate(templates.success), emitter);
+
+// Не понимаю, зачем ее переносить, если валидация происходит в конкретной форме  (валидация сейчас относительно абстрактная
+// и привязана к конкретной форме.
+// иначе класс ордера станет неабстрактным, причем будет хранить валидацию не ордера, а конкретной формы)
+// возможно я неправильно поняла ваш комментарий
 
 function validate(form: IForm) {
 	const errorText = getErrorText(form);
@@ -142,15 +148,12 @@ emitter.on(EVENTS.orderOpen, () => {
 });
 
 emitter.on(EVENTS.orderInput, () => {
+	orderBuilder.payment = orderForm.payment as PaymentType;
+	orderBuilder.address = orderForm.address;
 	validate(orderForm);
 });
 
 emitter.on(EVENTS.orderSubmit, () => {
-	const deliveryData: IDelivery = {
-		payment: orderForm.payment as PaymentType,
-		address: orderForm.address,
-	};
-	orderBuilder.delivery = deliveryData;
 	modal.render({
 		content: contactsForm.render({
 			valid: contactsForm.valid,
@@ -160,16 +163,13 @@ emitter.on(EVENTS.orderSubmit, () => {
 });
 
 emitter.on(EVENTS.contactsInput, () => {
+	orderBuilder.email = contactsForm.email;
+	orderBuilder.phone = contactsForm.phone;
 	validate(contactsForm);
 });
 
 emitter.on(EVENTS.contactsSubmit, () => {
-	const contactsData: IContacts = {
-		email: contactsForm.email,
-		phone: contactsForm.phone,
-	};
-	orderBuilder.contacts = contactsData;
-	const apiObj: IOrderData = orderBuilder.result.createOrderData();
+	const apiObj: IOrderData = orderBuilder.result;
 	orderApi
 		.postOrder(apiObj)
 		.then((data: IOrderResult) => {

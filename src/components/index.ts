@@ -17,7 +17,6 @@ export { Catalog as Catalog } from './Catalog/Catalog';
 export { Basket as Basket } from './Basket/Basket';
 export { BasketView as BasketView } from './Basket/BasketView';
 
-export { Order as Order } from './Order/Order';
 export { OrderConstructor as OrderConstructor } from './Order/OrderConstructor';
 
 
